@@ -1,7 +1,7 @@
 import * as  ActionTypes from '../Actions/ActionTypes' ;
 import initialState from './initialState.json';
 
-export default setContact= (state=initialState.contactSection,action)=>{
+export default function contactReducers (state=initialState.contactSection,action){
 
 
     switch(action.type){

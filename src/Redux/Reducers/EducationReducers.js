@@ -1,8 +1,8 @@
 import * as Actiontypes from '../Actions/ActionTypes'
 import intitialState from './initialState.json';
 
-export default educationReducers=(state=intitialState.educationSection, action)=>{
 
+export default function educationReducers(state=intitialState.educationSection, action){
 
     switch(action.type){
 
@@ -18,7 +18,6 @@ export default educationReducers=(state=intitialState.educationSection, action)=
 
 
     }
-
 
 
 

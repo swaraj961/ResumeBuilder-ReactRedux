@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 import ResumePreview from './resumePreview'
 import {skinCodes, fieldCd} from './../../constants/typeCodes';
-// import { connect } from 'react-redux'
-// import * as educationActions from '../../actions/educationActions';
+import * as educationActions from '../../Redux/Actions/EducationActions';
 // import {bindActionCreators} from 'redux';
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
 function Education(props) {
   console.log('Education');
@@ -26,11 +26,11 @@ function Education(props) {
 }
   const onSubmit = async(e) => {
     //console.log(this.state.educationSection);
-    // if(props.educationSection!=null){
-    //     props.updateEducation(props.document.id,education);
-    // }else{
-    //     props.addEducation(props.document.id,education);
-    // }
+    if(props.educationSection!=null){
+        props.updateEducation(education);
+    }else{
+        props.addEducation(education);
+    }
      history.push('/finalize')
   }
 
@@ -98,9 +98,32 @@ function Education(props) {
   }
 
 
+const mapStateToProps=(state)=>{
 
+
+  return {
+
+    document: state.document,
+    educationSection: state.educationSection
+
+  }
+
+
+
+}
   
 
+const mapDispatchToProps=(dispatch)=>{
 
-export default Education
+  return {
+
+    addEducation: (education)=> dispatch(educationActions.addEducation(education)),
+    updateEducation: (education)=> dispatch(educationActions.updateEducation(education))
+
+
+  }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps) (Education)
 
