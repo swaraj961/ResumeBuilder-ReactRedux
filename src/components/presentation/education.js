@@ -16,7 +16,7 @@ function Education(props) {
   const onchange = (event) => {
     var key =event.target.name;
     var val =event.target.value;
-    setEducation({...education,[key]:val})
+    setEducation({...education,[key]:val})  // immutable change and keeping original
   }
   const getFieldData=(key)=>{
     if(education && education[key]){
@@ -104,7 +104,8 @@ const mapStateToProps=(state)=>{
   return {
 
     document: state.document,
-    educationSection: state.educationSection
+    educationSection: state.educationSection,
+    contactSection: state.contactSection
 
   }
 
