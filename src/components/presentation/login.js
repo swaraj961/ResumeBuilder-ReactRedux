@@ -3,7 +3,7 @@ import update from 'immutability-helper';
 import { connect } from "react-redux";
 // import {bindActionCreators} from 'redux';
 import * as AuthActions from '../../Redux/Actions/AuthAction';
-// import { isLoaded } from 'react-redux-firebase'
+import { isLoaded } from 'react-redux-firebase'
 import { useHistory } from "react-router";
 
   function Login(props) {
@@ -18,26 +18,29 @@ import { useHistory } from "react-router";
       }
     }, [props]) // once user logout the props get changes and user doesnt have access to it
 
+
   const handleEmail= (e)=>{
   setEmail(e.target.value);
   }
   
+
   const handlePassword=(e)=>{
     setPassword(e.target.value);
   }
     const onSubmit=()=>{
     
-      let obj = {email:email,password:password}
-      console.log(obj)
-      props.signIn(obj)
+      let userDataObj = {email:email,password:password}
+      // console.log(userDataObj)
+      props.signIn(userDataObj)
     }
 
 
     return (
       <>
-      {/* If we visit the login being signed in we will be unable to see the form */}
+      {/* If we visit the login being signed in we shoudnt be unable to see the form current we see form for a while*/}
+      {!isLoaded(props.authFirebase)?<></>:
       <>
-      {props.authMine.loading?<h4 style={{marginTop:'10%',height:'52vh'}}>Patiently Wait...we are logging you in</h4>:
+      {props.authMine.loading?<center><h4 style={{marginTop:'10%',height:'52vh'}}>Patiently Wait...we are logging you in</h4></center>:
           <div className="container med contact">
             <div className="section funnel-section">
                 <div className="form-card">
@@ -64,7 +67,9 @@ import { useHistory } from "react-router";
             </div>
         </div>
   }
+      
   </>
+  }
   
         </>
     );
