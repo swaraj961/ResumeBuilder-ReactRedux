@@ -1,8 +1,8 @@
 import React,{useEffect,useState} from "react";
 import update from 'immutability-helper';
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 // import {bindActionCreators} from 'redux';
-// import * as authActions from '../../actions/authActions';
+import * as AuthActions from '../../Redux/Actions/AuthAction';
 // import { isLoaded } from 'react-redux-firebase'
 import { useHistory } from "react-router";
 
@@ -11,22 +11,25 @@ import { useHistory } from "react-router";
     let history = useHistory();
     const [email,setEmail] = useState('');
     const [password,setPassword]= useState('');
-    // useEffect(() => {
-    //   if(props.auth?.uid){
-    //     history.push('/')
-    //   }
-    // }, [props])
-const handleEmail= (e)=>{
-setEmail(e.target.value);
-}
-const handlePassword=(e)=>{
-  setPassword(e.target.value);
-}
+
+    useEffect(() => { // for if userlogged in route
+      if(props.authFirebase ?.uid){
+        history.push('/')
+      }
+    }, [props]) // once user logout the props get changes and user doesnt have access to it
+
+  const handleEmail= (e)=>{
+  setEmail(e.target.value);
+  }
+  
+  const handlePassword=(e)=>{
+    setPassword(e.target.value);
+  }
     const onSubmit=()=>{
     
-      // let obj = {email:email,password:password}
-      // console.log(obj)
-      // props.signIn(obj)
+      let obj = {email:email,password:password}
+      console.log(obj)
+      props.signIn(obj)
     }
 
 
@@ -68,8 +71,21 @@ const handlePassword=(e)=>{
   }
 
 
+ const mapStateToProps=(state)=>{
+  
+  return {
+    authMine:state.auth,
+    authFirebase: state.firebase.auth
+  }
+ }
 
- 
+ const mapDispatchToProps=(dispatch)=>{ // providing functionality
+
+  return {
+    signIn: (userData)=> dispatch(AuthActions.signIN(userData))
+  }
+
+ }
 
 
-  export default Login
+  export default connect(mapStateToProps,mapDispatchToProps) (Login);

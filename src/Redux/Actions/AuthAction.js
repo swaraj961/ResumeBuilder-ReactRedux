@@ -33,7 +33,7 @@ export const SignOutSuccess = () => {
 
 export const SignOutFailed = (error) => {
   return {
-    type: ActionTypes.SIGN_OUT_FAILED,
+    type: ActionTypes.SIGN_OUT_FAILED,  
     payload: error,
   };
 };
@@ -44,9 +44,10 @@ export const removeError = () => {
 
 // Thunk
 export const signIN = (userData) => {
-  return async (dispatch, { getFirebase, getFirestore }) => {
+  return async (dispatch,getState, { getFirebase, getFirestore }) => {
     dispatch(signInRequest()); // to show loading basically
 
+    console.log("triggered sign")
     const firebase = getFirebase(); //creating instance
 
     try {
@@ -55,7 +56,7 @@ export const signIN = (userData) => {
     } catch (e) {
       dispatch(signInFailed(e));
       setTimeout(() => {
-        dispatch(removeError);
+        dispatch(removeError());
       }, 2000);
     }
   };
@@ -83,7 +84,7 @@ export const registerFailed = (error) => {
 
 // thunk doing with promise this time
 export const registerUser = (userData) => {
-  return async (dispatch, { getFirebase, getFirestore }) => {
+  return async (dispatch, getState,{ getFirebase, getFirestore }) => {
     dispatch(registerRequest());
     const firebase = getFirebase();
     const firestore = getFirestore();
@@ -107,18 +108,19 @@ export const registerUser = (userData) => {
 
 // SignOut
 
-export const SignOut = () => {
-  return async (dipatch, { getFirebase, getFirestore }) => {
+export const signOut = () => {
+ 
+  return async (dispatch,getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
 
     dispatch(SignOutRequest());
 
     firebase.auth().signOut().then(() => {
         
-        dispatch(ActionTypes.SIGN_OUT); // call back to invoke
+        dispatch({type:ActionTypes.SIGN_OUT}); // call back to invoke
       })
       .catch((error) => {
-        dipatch(SignOutFailed(error));
+        dispatch(SignOutFailed(error));
       });
   };
 };

@@ -28,15 +28,14 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.firestore()
 
-const reduxStore = createStore(rootReducer,
-  composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),  // we want these two rather than dispatch to get instane of firebase & store with thunk
+const reduxStore = createStore(rootReducer,composeWithDevTools(
+  applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),  // we want these two rather than dispatch to get instane of firebase & store with thunk
     reduxFirestore(firebase) // redux bindings for firestore, as it doesnt work properly 
   )
 );
 
 /*Our requirements 
-1) firebase and firestone all evething in store rest thing we are explicitly defining 
+1) firebase and firestone all in store rest thing we are explicitly defining 
 2) with thunk we also want the instance of firebase and firestone */
 
 
