@@ -14,7 +14,7 @@ function ResumePreview(props){
           return props.educationSection[key]?props.educationSection[key] + (valToAppend?valToAppend:'') :'';
         }
         return '';
-    }
+    }   
 
         return (
             <div className={props.skinCd + " resume-preview "}>

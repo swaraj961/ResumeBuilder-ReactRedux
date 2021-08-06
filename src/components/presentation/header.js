@@ -1,7 +1,7 @@
 import React from "react";
 import * as authActions from '../../Redux/Actions/AuthAction'
 import { NavLink } from "react-router-dom";
-import logo from "../../static/images/logo.png";
+import logo from "../../static/images/logo2.ico";
 import { connect } from "react-redux"; // to consume MapStateToProps
 import {isLoaded, isEmpty, authIsReady} from 'react-redux-firebase' // hooks for user Signin check
 

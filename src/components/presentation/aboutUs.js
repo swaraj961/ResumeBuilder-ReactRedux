@@ -13,7 +13,7 @@ const AboutUs = () => {
                     </p>
         
                     <h2 className="email text-large">
-                        support@pepcoding.com
+                       swarajroutray961@gmail.com
                     </h2>
         
                     <p className="happy-to-help">
